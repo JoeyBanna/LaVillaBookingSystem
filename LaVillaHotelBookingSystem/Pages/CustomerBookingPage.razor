@@ -1,0 +1,129 @@
+﻿@page "/customer-details/{Id}"
+@using Models;
+@inject IJSRuntime JSRuntime
+@inject LaVillaHotelBookingSystem.Services.IService.ICreatingBookingService createBooking
+@inject NavigationManager navigationManager
+@inject ILocalStorageService localStorage
+
+
+ 
+<div class="row" style="width: 30%; margin: 0 auto">
+   
+    <h3 class="card-title text-info mb-3 ml-3 style="margin:auto" >Complete Your Booking</h3>
+    
+    <div class="">
+        <div class="card">
+            <div class="card-body">
+                <EditForm Model="customerbookingDTO" OnValidSubmit="HandleBooking" >
+                     <DataAnnotationsValidator />
+                    <h3>Enter Your Details</h3>
+                    <hr/>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <InputText @bind-Value="customerbookingDTO.customerName" class="form-control"></InputText>
+                        <ValidationMessage For="()=>customerbookingDTO.customerName"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <InputText @bind-Value="customerbookingDTO.customerEmailAddress" class="form-control"></InputText>
+                        <ValidationMessage For="()=>customerbookingDTO.customerEmailAddress"></ValidationMessage>
+                    </div>
+                   @*  <div class="form-group">
+                    <label class="text-warning">Check in Date</label>
+                    <InputDate @bind-Value="customerbooking.checkIn" type="Date" disabled class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="text-warning">Check Out Date</label>
+                    <InputDate @bind-Value="customerbooking.checkOut" type="Date" disabled class="form-control" />
+                </div>*@
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <InputText @bind-Value="customerbookingDTO.customerMobile" class="form-control"></InputText>
+                        <ValidationMessage For="()=>customerbookingDTO.customerMobile"></ValidationMessage>
+                    </div>
+                       <div class="form-group">
+                        <label>Check-In-Date</label>
+                        <InputDate @bind-Value="customerbookingDTO.checkInDate" class="form-control" disabled></InputDate>
+                       
+                    </div>
+                       <div class="form-group">
+                        <label></label>
+                        <InputDate @bind-Value="customerbookingDTO.checkOutDate" class="form-control" disabled></InputDate>
+                       
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                         <button class="btn btn-success" > Pay/Book</button>
+                        <NavLink href="/" class="btn btn-secondary">Cancel</NavLink>
+                    </div>
+                    <br />
+
+                    @*@if(customerbooking.customerName == null && customerbooking.customerEmailAddress == null )
+                    {
+                        <div class="form-group">
+                        <button class="btn btn-info" disabled>Pay/Book</button>
+                        <NavLink href="/" class="btn btn-secondary">Cancel</NavLink>
+                        </div>
+                    }
+                    else
+                    {*@
+                        
+                     
+                        
+                    @*}*@
+                </EditForm>
+                   <img src="/Images/logo.png" alt="Logo of La Villa " width="200" height="100" class=" center contrast " />
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string? Id { get; set; }
+    public customerBookingDTO customerbookingDTO{ get; set; } = new customerBookingDTO();
+    public CreateCustomerBooking customerbooking{ get; set; } = new CreateCustomerBooking();
+    internal bool IsProcessingStart { get; set; } = false;
+    public HotelRoomDT hotelRoomDT { get; set; } = new HotelRoomDT();
+    public string name { get; set; }
+
+    public string Title { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+             
+
+            customerbookingDTO.checkInDate.ToString("yyyy-MM-dd");
+            customerbookingDTO.checkOutDate.ToString("yyyy-MM-dd");
+            if(await localStorage.GetItemAsync<customerBookingDTO>("InitialRoomBookingInfo")!=null)
+            {
+                customerbookingDTO = await localStorage.GetItemAsync<customerBookingDTO>("InitialRoomBookingInfo");
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+
+    }
+
+
+    private async Task HandleBooking()
+    {
+      Guid newGuid = new Guid(Id);
+      customerbookingDTO.roomId= newGuid;
+      customerbookingDTO = await localStorage.GetItemAsync<customerBookingDTO>("InitialRoomBookingInfo");
+      await createBooking.createBookingDT(customerbookingDTO);
+      await JSRuntime.SweetSuccess("Success Message");
+
+      navigationManager.NavigateTo("/");      
+      IsProcessingStart = false;
+  
+    }
+    
+
+}

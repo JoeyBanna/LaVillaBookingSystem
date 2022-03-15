@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaVillaHotelBookingSystem", "LaVillaHotelBookingSystem\LaVillaHotelBookingSystem.csproj", "{16BE68B6-1723-4417-AFEE-52962A1A4794}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{9AEE1B7E-D06C-44D3-B47B-4ECA016A1A86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16BE68B6-1723-4417-AFEE-52962A1A4794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16BE68B6-1723-4417-AFEE-52962A1A4794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16BE68B6-1723-4417-AFEE-52962A1A4794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16BE68B6-1723-4417-AFEE-52962A1A4794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AEE1B7E-D06C-44D3-B47B-4ECA016A1A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AEE1B7E-D06C-44D3-B47B-4ECA016A1A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AEE1B7E-D06C-44D3-B47B-4ECA016A1A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AEE1B7E-D06C-44D3-B47B-4ECA016A1A86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA95B726-69C7-4109-AF5E-3E5F00A88631}
+	EndGlobalSection
+EndGlobal
