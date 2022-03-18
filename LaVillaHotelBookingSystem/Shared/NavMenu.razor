@@ -32,17 +32,28 @@
            <img src="/Images/logo.png" alt="Logo of La Villa " width="200" height="100" class="contrast" />
         </NavLink>
        </div>
-       <div  class="button" style="margin-left:700px">
-             <NavLink class="btn btn-outline-success"  href="hotel-rooms" >Book A Villa</NavLink>
+
+    
+       <div >
+             <div class="text-warning" style="margin-left:570px; margin-right:10px" > 
+                 <i class="fas fa-compass" style="margin-right:10px"> </i> 
+           <a href="location" class=" text-white">
+               Location
+               </a>
+               
        </div>
-      
-        <div style="margin-top:10px ">
-             <div class="text-warning" style="margin-right:100px" > 
-                 <i class="fas fa-phone-alt"> </i> 
-           <a href="tel:+012-345-67-89" >+012-345-67-89 </a>
+             <div class="text-warning" style="margin-left:700px; margin-top:-23px" > 
+                 <i class="fas fa-phone-alt" style="margin-right:10px"> </i> 
+           <a href="tel:+012-345-67-89" class=" text-white">+012-345-67-89 </a>
        </div>
+        
         </div>
-      
+        <div  class="button" style="margin-right:100px">
+             <NavLink class="btn btn-outline-success btn-lg text-white"  href="hotel-rooms" >Book A Villa</NavLink>
+       </div>
    
-  
+ 
 </nav>
+@code{
+    public string location = "https://www.google.com/maps/dir/5.5931936,-0.2338484/persol+systems/@5.5928456,-0.2430609,13z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0xfdf9b2cf56654b1:0xc411affb1ce86856!2m2!1d-0.1822341!2d5.6127239";
+}
