@@ -114,12 +114,12 @@
 
     private async Task HandleBooking()
     {
-      Guid newGuid = new Guid(Id);
+        Guid newGuid = new Guid(Id);
       customerbookingDTO.roomId= newGuid;
-      customerbookingDTO = await localStorage.GetItemAsync<customerBookingDTO>("InitialRoomBookingInfo");
       await createBooking.createBookingDT(customerbookingDTO);
       await JSRuntime.SweetSuccess("Success Message");
-
+    
+      //customerbookingDTO = await localStorage.GetItemAsync<customerBookingDTO>("InitialRoomBookingInfo");
       navigationManager.NavigateTo("/");      
       IsProcessingStart = false;
   
