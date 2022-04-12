@@ -10,9 +10,15 @@ namespace Models
     public class CreateCustomerBooking
     {
         public string Id { get; set; }
+
         [Required(ErrorMessage = "Enter Full Name")]
+        [StringLength(18,
+        ErrorMessage = "Name too long (18 character limit).")]
         public string customerName { get; set; }
+
         [Required(ErrorMessage = "Enter Mobile Number")]
+        [Range(1, 10,
+        ErrorMessage = "Mobile Number Invalid (1-10) Characters Only.")]
         public string customerMobile { get; set; }
         [Required(ErrorMessage = "Email is required")]
         [RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "Invalid email address")]
@@ -32,8 +38,14 @@ namespace Models
   public class customerBookingDTO
     {
         [Required(ErrorMessage = "Enter Full Name")]
+        [StringLength(50,
+        ErrorMessage = "Name too long (18 character limit).")]
         public string customerName { get; set; }
+
+        [Required(ErrorMessage = "Enter Mobile Number")]
+        [RegularExpression(@"^(\d{10})+$", ErrorMessage = "Invalid Mobile Number")]
         public string customerMobile { get; set; }
+
         [Required(ErrorMessage = "Email is required")]
         [RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", ErrorMessage = "Invalid email address")]
         public string customerEmailAddress { get; set; }
