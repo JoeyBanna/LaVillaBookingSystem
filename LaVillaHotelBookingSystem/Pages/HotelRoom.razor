@@ -19,7 +19,7 @@
             <div class="col-6 col-md-4">
                 <div class="form-group">
                     <label class="text-warning">Check in Date</label>
-                     <InputDate  typeof="Date" @bind-Value="bookingDetails.checkInDate"  class="form-control" />
+                     <InputDate  typeof="Date" @bind-Value="bookingDetails.checkInAt"  class="form-control" />
                 </div>
             </div>
             <div class="col-6 col-md-4">
@@ -43,7 +43,7 @@
             <div class="col-6 col-md-4">
                 <div class="form-group" style="margin-top: 1.3rem !important;" >
 
-                    <button type="submit" @onclick="()=>HandleAvailableRoom(bookingDetails.checkInDate,bookingDetails.checkOutDate)" value="Search" class="btn btn-success btn-block form-control" >
+                    <button type="submit" @onclick="()=>HandleAvailableRoom(bookingDetails.checkInAt,bookingDetails.checkOutDate)" value="Search" class="btn btn-success btn-block form-control" >
                         Search Rooms
                     </button>
 
@@ -149,7 +149,8 @@ else
   <div class="container row mt-4" style="display:flex; " >
 @foreach (var room in hotelRooms)
 {
-        <div class="card" style="width:45rem;">
+            
+            <div class="card" style="width:45rem;">
         
                     <div class="col-12">
                         <div id="carouselExampleIndicators_@room.id" class="carousel slide mb-4 m-md-3 m-0 pt-3 pt-md-0" data-ride="carousel">
@@ -222,16 +223,16 @@ else
                                             <h4 class="text-warning font-weight-bold pt-4">
                                                 USD
                                                 <span style="border-bottom:1px solid #ff6a00">
-                                                    @room.regularRate.ToString("#,#.00;(#,#.00#)")
+                                                    @room.amountToPay.ToString("#,#.00;(#,#.00#)")
                                                 </span>
                                             </h4>
-                                            <span class="float-right">Cost For  @*@room.TotalDays*@ Total Stay</span>
+                                            <span class="float-right">Cost For Total Stay</span>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="row pb-3 pt-2 center" >
                                     <div class="col-12 col-lg-11 offset-lg-">
-                                            <a href="@($"customer-details/{room.id}")" class="btn btn-success " style="padding: 1.5rem 1rem;
+                                            <a href="@($"customer-details/{room.id}/{room.amountToPay}")" class="btn btn-success " style="padding: 1.5rem 1rem;
     font-size: 1.25rem;
     border-radius: 11.3rem;
 }">Book</a>
@@ -388,34 +389,33 @@ else
     private IEnumerable<HotelRoomType> hotelRoomTypes { get; set; } = new List<HotelRoomType>();
     public IEnumerable<HotelAmenityDT> hotelAmenityDTs { get; set; } = new List<HotelAmenityDT>();
     public IEnumerable<HotelRoomDT> hotelRooms { get; set; } = new List<HotelRoomDT>();
+    public HotelRoomDT hotelRoomDT { get; set; } = new HotelRoomDT();
     public string hotelRoomTypeName { get; set; }
-     private bool IsProcessing { get; set; } = false;
-    public int i{ get; set; }
-    
+    private bool IsProcessing { get; set; } = false;
+    public int payee{ get; set; }
 
 
-     private async Task HandleAvailableRoom(DateTime CheckInDate, DateTime CheckOutDate)
+
+    private async Task HandleAvailableRoom(DateTime CheckInDate, DateTime CheckOutDate)
     {
+        hotelRooms = await hotelRoomService.GetHotelRooms(bookingDetails.checkInAt, bookingDetails.checkOutDate);
         
-        hotelRooms = await hotelRoomService.GetHotelRooms(bookingDetails.checkInDate, bookingDetails.checkOutDate);
-        
-
     }
 
 
 
-      private async Task SweetFailure()
+    private async Task SweetFailure()
     {
-      await JsRuntime.SweetError( "Error Message");
+        await JsRuntime.SweetError( "Error Message");
     }
 
-     protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 
         try
         {
-
-            bookingDetails.checkInDate = bookingDetails.checkInDate;
+            
+            bookingDetails.checkInAt = bookingDetails.checkInAt;
             bookingDetails.checkOutDate = bookingDetails.checkOutDate;
             await localStorage.SetItemAsync("InitialRoomBookingInfo", bookingDetails);
             //navigation.NavigateTo("hotel-rooms", true);

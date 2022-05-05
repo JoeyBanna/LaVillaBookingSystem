@@ -51,7 +51,7 @@ namespace Models
         public string customerEmailAddress { get; set; }
         public int amountPaid { get; set; }
         public int balance { get; set; }
-        public DateTime checkInDate { get; set; } = DateTime.Now;
+        public DateTime checkInAt { get; set; } = DateTime.Now;
         public DateTime checkOutDate { get; set; } = DateTime.Now;
         public Guid roomId { get; set; }
     }

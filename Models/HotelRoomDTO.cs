@@ -37,6 +37,7 @@ namespace Models
         public DateTime createdDate { get; set; }
         public object updatedBy { get; set; }
         public DateTime updatedDate { get; set; }
+        public int amountToPay { get; set; }    
         public List<HotelRoomImage> hotelRoomImages { get; set; }
         public List<string> ImageUrls { get; set; }
 

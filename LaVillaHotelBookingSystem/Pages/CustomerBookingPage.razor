@@ -1,4 +1,4 @@
-﻿@page "/customer-details/{Id}"
+﻿@page "/customer-details/{Id}/{amount:int}"
 @using Models;
 @inject IJSRuntime JSRuntime
 @inject LaVillaHotelBookingSystem.Services.IService.ICreatingBookingService createBooking
@@ -44,7 +44,7 @@
                     </div>
                        <div class="form-group">
                         <label>Check-In-Date</label>
-                        <InputDate @bind-Value="customerbookingDTO.checkInDate" class="form-control" disabled></InputDate>
+                        <InputDate @bind-Value="customerbookingDTO.checkInAt" class="form-control" disabled></InputDate>
                        
                     </div>
                        <div class="form-group">
@@ -83,6 +83,8 @@
 
     [Parameter]
     public string? Id { get; set; }
+    [Parameter]
+    public int amount { get; set; }
     public customerBookingDTO customerbookingDTO{ get; set; } = new customerBookingDTO();
     public CreateCustomerBooking customerbooking{ get; set; } = new CreateCustomerBooking();
     internal bool IsProcessingStart { get; set; } = false;
@@ -95,9 +97,9 @@
     {
         try
         {
-             
 
-            customerbookingDTO.checkInDate.ToString("yyyy-MM-dd");
+
+            customerbookingDTO.checkInAt.ToString("yyyy-MM-dd");
             customerbookingDTO.checkOutDate.ToString("yyyy-MM-dd");
             if(await localStorage.GetItemAsync<customerBookingDTO>("InitialRoomBookingInfo")!=null)
             {
@@ -114,8 +116,10 @@
 
     private async Task HandleBooking()
     {
+        customerbookingDTO.amountPaid = amount;
         Guid newGuid = new Guid(Id);
       customerbookingDTO.roomId= newGuid;
+       
       await createBooking.createBookingDT(customerbookingDTO);
       await JSRuntime.SweetSuccess("Success Message");
     
@@ -124,6 +128,7 @@
       IsProcessingStart = false;
   
     }
+   
     
 
 }
